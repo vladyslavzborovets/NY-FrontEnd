@@ -14,14 +14,14 @@ const Forms = (props) => {
     
     
     //useeffects 
-    // useEffect(()=> {
-    //     //.get heroku backend
-    //     .get()
-    //     .then((response)=> {
-    //         setForms(response.data)
-    //     })
-    // })
+    useEffect(()=> {
+      axios
+      .get('https://ny-app-backend.herokuapp.com/ny-logs')
+      .then((response) => {
+        setForms(response.data)
 
+      })
+    })
     //handler
     //title, .... e is for event 
     const handleNewTitleChange = (e) => {
@@ -62,7 +62,7 @@ const Forms = (props) => {
         e.preventDefault()
         axios.post(
           // 'http://localhost:3000', herokus goes here ''
-          '',
+          'https://ny-app-backend.herokuapp.com/ny-logs',
           {
             title: title,
             image: image,
@@ -73,7 +73,7 @@ const Forms = (props) => {
         ).then( () => {
           axios
             // .get('http://localhost:3000') heroku goes here ''
-            .get('')
+            .get('https://ny-app-backend.herokuapp.com/ny-logs')
             .then((response) => {
               setForms(response.data)
             //   document.getElementById("add-post").reset()
@@ -87,7 +87,7 @@ const Forms = (props) => {
         axios
         .put(
           // `http://localhost:3000/${formsData._id}`, heroku goes here ''
-          ``,
+          `https://ny-app-backend.herokuapp.com/ny-logs/${formsData._id}`,
           {
             title: title,
             image: image,
@@ -97,7 +97,7 @@ const Forms = (props) => {
         ).then( () => {
           axios
             // .get('http://localhost:3000') heroku goes here ''
-            .get('')
+            .get('https://ny-app-backend.herokuapp.com/ny-logs')
             .then((response) => {
               setForms(response.data)
             //   document.getElementById('edit-forms').reset()
@@ -105,14 +105,14 @@ const Forms = (props) => {
         })
       }
 
-      const handleDelete = (formtData) => {
+      const handleDelete = (formData) => {
         axios
           // .delete(`http://localhost:3000/${formData._id}`) heroku goes here ''
-          .delete(``)
+          .delete(`https://ny-app-backend.herokuapp.com/ny-logs/${formData._id}`)
           .then( () => {
             axios
               // .get('http://localhost:3000') heroku goes here ''
-              .get('')
+              .get('https://ny-app-backend.herokuapp.com/ny-logs')
               .then((response) => {
                 setForms(response.data)
               })
@@ -125,7 +125,7 @@ const Forms = (props) => {
     useEffect( () => {
         axios
         // .get('http://localhost:3000/') heroku goes here ''
-        .get('')
+        .get('https://ny-app-backend.herokuapp.com/ny-logs')
         .then((response) => {
           setForms(response.data)
         })
@@ -133,7 +133,7 @@ const Forms = (props) => {
 
     //return
     return(
-    <main id="main-container">
+    <main className="main-container">
         <section>
             <h2>Add your fav places</h2>
             <form onSubmit={handleNewFormsSubmit}>
@@ -148,7 +148,7 @@ const Forms = (props) => {
         
     </section>
         <h2>forms</h2>
-        <ul className="">
+        <ul className="#">
         {
             Forms.map((forms) => {
                 return <li key={forms._id}>
@@ -194,15 +194,7 @@ const Forms = (props) => {
         </ul>
 </main>
         
-        
-
-        //form array .map
-        //edit
-        //delete
     )
-
-
-
 }
 
 export default Forms
