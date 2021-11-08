@@ -36,3 +36,72 @@
     transform: rotate(360deg);
   }
 }
+
+html {
+    text-align: center;
+    background-color: lightyellow;
+}
+
+img {
+    width: 800px;
+    height: 600px;
+    border: black solid 5px;
+    border-radius: 5px;
+
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+h2 {
+    font-size: 40px;
+    font-family: monospace;
+}
+
+h3 {
+    font-size: 38px;
+    font-family: serif;
+}
+
+.form-details {
+    font-size: 32px;
+    font-style: italic;
+}
+
+
+#post-submit {
+    font-size: 22px;
+    background-color: red;
+    border-radius: 50px;
+    border: black solid 2px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
+input[type=text] {
+    font-size: 30px;
+    background-color: lightgrey;
+
+
+}
+
+button {
+ display: inline-block;
+ border-radius: 2px;
+ background-color: #f4511e;
+ color: #FFFFFF;
+ text-align: center;
+ font-size: 28px;
+ transition: all 0.5s;
+ cursor: pointer;
+ margin: 5px;
+ box-shadow:0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+}
+
+ul {
+    list-style: none;
+}

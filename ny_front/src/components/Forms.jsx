@@ -1,6 +1,7 @@
- 
+
 import { useState, useEffect } from 'react'
-import axios from 'axios'   
+import axios from 'axios'
+import '../App.css'
 
 //pass props in forms
 const Forms = (props) => {
@@ -11,19 +12,20 @@ const Forms = (props) => {
     const [image, setImage] = useState('') // hook for images
     const [location, setLocation] = useState('') // hook for location
     const [description, setDescription] = useState('') // hook for description
-    
-    
-    //useeffects 
+
+    console.log(description)
+
+    //useeffects
     useEffect(()=> {
       axios
-      .get('https://ny-app-backend.herokuapp.com/ny-logs')
+      .get('https://ny-app-backend.herokuapp.com')
       .then((response) => {
         setForms(response.data)
 
       })
-    })
+    }, [])
     //handler
-    //title, .... e is for event 
+    //title, .... e is for event
     const handleNewTitleChange = (e) => {
         setTitle(e.target.value)
       }
@@ -38,7 +40,7 @@ const Forms = (props) => {
       }
 
       const handleNewDescriptionChange = (e) => {
-        setTitle(e.target.value)
+        setDescription(e.target.value)
       }
 
       //updates
@@ -62,22 +64,21 @@ const Forms = (props) => {
         e.preventDefault()
         axios.post(
           // 'http://localhost:3000', herokus goes here ''
-          'https://ny-app-backend.herokuapp.com/ny-logs',
+          'https://ny-app-backend.herokuapp.com',
           {
             title: title,
             image: image,
             location: location,
             description: description,
-
           }
         ).then( () => {
           axios
             // .get('http://localhost:3000') heroku goes here ''
-            .get('https://ny-app-backend.herokuapp.com/ny-logs')
+            .get('https://ny-app-backend.herokuapp.com')
             .then((response) => {
               setForms(response.data)
             //   document.getElementById("add-post").reset()
-              
+
             })
         })
       }
@@ -87,7 +88,7 @@ const Forms = (props) => {
         axios
         .put(
           // `http://localhost:3000/${formsData._id}`, heroku goes here ''
-          `https://ny-app-backend.herokuapp.com/ny-logs/${formsData._id}`,
+          `https://ny-app-backend.herokuapp.com/${formsData._id}`,
           {
             title: title,
             image: image,
@@ -97,7 +98,7 @@ const Forms = (props) => {
         ).then( () => {
           axios
             // .get('http://localhost:3000') heroku goes here ''
-            .get('https://ny-app-backend.herokuapp.com/ny-logs')
+            .get('https://ny-app-backend.herokuapp.com')
             .then((response) => {
               setForms(response.data)
             //   document.getElementById('edit-forms').reset()
@@ -108,28 +109,31 @@ const Forms = (props) => {
       const handleDelete = (formData) => {
         axios
           // .delete(`http://localhost:3000/${formData._id}`) heroku goes here ''
-          .delete(`https://ny-app-backend.herokuapp.com/ny-logs/${formData._id}`)
+          .delete(`https://ny-app-backend.herokuapp.com/${formData._id}`)
           .then( () => {
             axios
               // .get('http://localhost:3000') heroku goes here ''
-              .get('https://ny-app-backend.herokuapp.com/ny-logs')
+              .get('https://ny-app-backend.herokuapp.com')
               .then((response) => {
                 setForms(response.data)
               })
           })
       }
-    
+
+
 
 
     //use effects
     useEffect( () => {
         axios
         // .get('http://localhost:3000/') heroku goes here ''
-        .get('https://ny-app-backend.herokuapp.com/ny-logs')
+        .get('https://ny-app-backend.herokuapp.com')
         .then((response) => {
           setForms(response.data)
         })
       }, [])
+
+      console.log(forms)
 
     //return
     return(
@@ -145,19 +149,19 @@ const Forms = (props) => {
                 </div>
             <input id="post-submit" type="submit" value="SUBMIT POST"/>
              </form>
-        
+
     </section>
         <h2>forms</h2>
         <ul className="#">
         {
-            Forms.map((forms) => {
+            forms.map((forms) => {
                 return <li key={forms._id}>
                 <h3 className="form-title">{forms.title}</h3>
                 <img className="form-img" src={forms.image}/>
                 <details>
                     <div className="form-details">
                     <h3>Location: {forms.location}</h3>
-                    <h3>description: {forms.description}</h3> 
+                    <h3>description: {forms.description}</h3>
                     </div>
                     <details>
                     <header>edit form</header>
@@ -172,28 +176,28 @@ const Forms = (props) => {
                                 Decription: <input name="description" type="text" onChange={handleUpdateDescription}/><br />
                             </div>
                             <div className="edit-delete">
-                                <input type="submit" value="SUBMIT EDITS"/>
+                                <input type="submit" value="SUBMIT EDITS"/><br/>
                                 <button onClick={ e => {
                                     e.preventDefault()
                                     handleDelete(forms) }}
                                     >DELETE POST</button>
                             </div>
-                        
+
                         </form>
-                    
+
                     </div>
-                    
+
                     </details>
                 </details>
-            
-                
+
+
                 </li>
             })
         }
-        
+
         </ul>
 </main>
-        
+
     )
 }
 
